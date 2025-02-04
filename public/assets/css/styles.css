@@ -1,0 +1,18 @@
+body {
+    padding-top: 56px; /* Adjust for fixed navbar */
+}
+
+.container {
+    max-width: 800px; /* Limit the width for better readability */
+}
+
+.card {
+    margin-bottom: 20px; /* Space between cards */
+}
+.btn {
+    margin: 5px; /* Add margin to buttons for better spacing */
+}
+
+.alert {
+    margin-top: 20px; /* Space alerts from other elements */
+}
