@@ -7,45 +7,68 @@ class ProgressModel {
     }
 
     public function getAllProgress() {
-        $stmt = $this->pdo->query("SELECT * FROM progress");
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        $stmt = $this->pdo->prepare("SELECT * FROM progress WHERE user_id = ?");
+        $stmt->execute([$_SESSION['user_id']]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getProgressByUserId($userId) {
+        if (!isset($_SESSION['user_id']) || $_SESSION['user_id'] != $userId) {
+            throw new Exception('Unauthorized access');
+        }
         $stmt = $this->pdo->prepare("SELECT * FROM progress WHERE user_id = ?");
         $stmt->execute([$userId]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getProgressById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM progress WHERE id = ?");
-        $stmt->execute([$id]);
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        $stmt = $this->pdo->prepare("SELECT * FROM progress WHERE id = ? AND user_id = ?");
+        $stmt->execute([$id, $_SESSION['user_id']]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     public function createProgress($data) {
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
         $stmt = $this->pdo->prepare("INSERT INTO progress (user_id, date, weight, body_fat_percentage) VALUES (?, ?, ?, ?)");
         return $stmt->execute([
-            $data['user_id'], 
-            $data['date'], 
-            $data['weight'], 
-            $data['body_fat_percentage']
+            $_SESSION['user_id'],
+            htmlspecialchars($data['date']),
+            filter_var($data['weight'], FILTER_VALIDATE_FLOAT),
+            filter_var($data['body_fat_percentage'], FILTER_VALIDATE_FLOAT)
         ]);
     }
 
     public function updateProgress($id, $data) {
-        $stmt = $this->pdo->prepare("UPDATE progress SET date = ?, weight = ?, body_fat_percentage = ? WHERE id = ?");
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        $stmt = $this->pdo->prepare("UPDATE progress SET date = ?, weight = ?, body_fat_percentage = ? WHERE id = ? AND user_id = ?");
         return $stmt->execute([
-            $data['date'], 
-            $data['weight'], 
-            $data['body_fat_percentage'], 
-            $id
+            htmlspecialchars($data['date']),
+            filter_var($data['weight'], FILTER_VALIDATE_FLOAT),
+            filter_var($data['body_fat_percentage'], FILTER_VALIDATE_FLOAT),
+            filter_var($id, FILTER_VALIDATE_INT),
+            $_SESSION['user_id']
         ]);
     }
 
     public function deleteProgress($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM progress WHERE id = ?");
-        return $stmt->execute([$id]);
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        $stmt = $this->pdo->prepare("DELETE FROM progress WHERE id = ? AND user_id = ?");
+        return $stmt->execute([
+            filter_var($id, FILTER_VALIDATE_INT),
+            $_SESSION['user_id']
+        ]);
     }
 }
 ?>

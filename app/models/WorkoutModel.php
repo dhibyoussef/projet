@@ -6,31 +6,88 @@ class WorkoutModel {
         $this->pdo = $pdo;
     }
 
-    public function getAllWorkouts() {
-        $stmt = $this->pdo->prepare("SELECT * FROM workouts");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getWorkoutsByUserId($userId) {
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM workouts WHERE user_id = ?");
+            $stmt->execute([$userId]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error in getWorkoutsByUserId: " . $e->getMessage());
+            throw new Exception('Failed to retrieve workouts');
+        }
     }
 
     public function createWorkout($data) {
-        $stmt = $this->pdo->prepare("INSERT INTO workouts (id,name, description, duration) VALUES (?, ?, ?, ?)");
-        return $stmt->execute([$data['id'], $data['workout_name'], $data['description'], $data['duration']]);
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        try {
+            $stmt = $this->pdo->prepare("INSERT INTO workouts (user_id, workout_name, description, duration) VALUES (?, ?, ?, ?)");
+            return $stmt->execute([
+                $_SESSION['user_id'],
+                htmlspecialchars($data['workout_name']),
+                htmlspecialchars($data['description']),
+                filter_var($data['duration'], FILTER_VALIDATE_INT)
+            ]);
+        } catch (PDOException $e) {
+            error_log("Database error in createWorkout: " . $e->getMessage());
+            throw new Exception('Failed to create workout');
+        }
     }
 
     public function updateWorkout($id, $data) {
-        $stmt = $this->pdo->prepare("UPDATE workouts SET workout_name = ?, description = ?, duration = ? WHERE id = ?");
-        return $stmt->execute([$data['workout_name'], $data['description'], $data['duration'], $id]);
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        try {
+            $stmt = $this->pdo->prepare("UPDATE workouts SET workout_name = ?, description = ?, duration = ? WHERE id = ? AND user_id = ?");
+            return $stmt->execute([
+                htmlspecialchars($data['workout_name']),
+                htmlspecialchars($data['description']),
+                filter_var($data['duration'], FILTER_VALIDATE_INT),
+                filter_var($id, FILTER_VALIDATE_INT),
+                $_SESSION['user_id']
+            ]);
+        } catch (PDOException $e) {
+            error_log("Database error in updateWorkout: " . $e->getMessage());
+            throw new Exception('Failed to update workout');
+        }
     }
 
     public function deleteWorkout($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM workouts WHERE id = ?");
-        return $stmt->execute([$id]);
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        try {
+            $stmt = $this->pdo->prepare("DELETE FROM workouts WHERE id = ? AND user_id = ?");
+            return $stmt->execute([
+                filter_var($id, FILTER_VALIDATE_INT),
+                $_SESSION['user_id']
+            ]);
+        } catch (PDOException $e) {
+            error_log("Database error in deleteWorkout: " . $e->getMessage());
+            throw new Exception('Failed to delete workout');
+        }
     }
 
     public function getWorkoutById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM workouts WHERE id = ?");
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!isset($_SESSION['user_id'])) {
+            throw new Exception('User not authenticated');
+        }
+        try {
+            $stmt = $this->pdo->prepare("SELECT * FROM workouts WHERE id = ? AND user_id = ?");
+            $stmt->execute([
+                filter_var($id, FILTER_VALIDATE_INT),
+                $_SESSION['user_id']
+            ]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Database error in getWorkoutById: " . $e->getMessage());
+            throw new Exception('Failed to retrieve workout');
+        }
     }
 }
 ?>

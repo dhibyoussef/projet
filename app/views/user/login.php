@@ -1,4 +1,17 @@
-<?php include '../layouts/header.php'; ?>
+<?php
+// Start session if not already started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Regenerate session ID for security
+if (!isset($_SESSION['initiated'])) {
+    session_regenerate_id(true);
+    $_SESSION['initiated'] = true;
+}
+
+include '../layouts/header.php'; 
+?>
 <link rel="stylesheet" href="assets/bootstrap.css">
 <style>
 body {
@@ -8,8 +21,26 @@ body {
 </style>
 <div class="container">
     <h1 class="mb-4">Login</h1>
+    <?php if (isset($_SESSION['message'])): ?>
+    <div class="alert alert-<?php echo htmlspecialchars($_SESSION['message_type']); ?> alert-dismissible fade show"
+        role="alert">
+        <?php echo htmlspecialchars($_SESSION['message']); ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <?php unset($_SESSION['message']); ?>
+    <?php endif; ?>
     <form method="POST" action="../../controllers/user/LoginController.php" class="needs-validation" novalidate>
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
+        <?php 
+        // Generate CSRF token if not already set
+        if (!isset($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            $_SESSION['csrf_token_time'] = time(); // Store token generation time
+        }
+        ?>
+        <input type="hidden" name="csrf_token"
+            value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email" required>
