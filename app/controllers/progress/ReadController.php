@@ -18,11 +18,12 @@ require_once '../../models/ProgressModel.php';
 require_once '../../../config/database.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['error_message'] = "You must be logged in to view progress data.";
-    header('Location: ../../views/user/login.php');
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    $_SESSION['error_message'] = "You must be logged in to view progress.";
+    header('Location: /login');
     exit();
 }
+
 
 $progressModel = new ProgressModel($pdo);
 

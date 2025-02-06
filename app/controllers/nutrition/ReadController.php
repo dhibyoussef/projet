@@ -18,9 +18,9 @@ require_once '../../models/NutritionModel.php';
 require_once '../../../config/database.php';
 
 // Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
-    $_SESSION['error_message'] = "You must be logged in to view nutrition data.";
-    header('Location: ../../views/user/login.php');
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
+    $_SESSION['error_message'] = "You must be logged in to view nutrition.";
+    header('Location: /login');
     exit();
 }
 

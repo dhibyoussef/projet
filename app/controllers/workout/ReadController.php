@@ -14,9 +14,9 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // Check if user is logged in using consistent session variable
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     $_SESSION['error_message'] = "You must be logged in to view workouts.";
-    header('Location: ../../views/user/login.php');
+    header('Location: /login');
     exit();
 }
 
