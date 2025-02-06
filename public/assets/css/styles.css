@@ -67,7 +67,7 @@ body {
     color: white;
     border-radius: 0.5rem;
     transform: translateZ(0) rotateX(0.2deg) rotateY(0.2deg);
-    transition: all var(--transition-speed) ease, transform 0.3s cubic-bezier(极客时间0.25, 0.46, 0.45, 0.94);
+    transition: all var(--transition-speed) ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     box-shadow: var(--depth-shadow);
     will-change: transform, box-shadow;
     perspective: 600px;
@@ -82,7 +82,7 @@ body {
     margin-top: 2rem;
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
-    border: 极客时间1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 0.5rem;
     transform: translateZ(0) rotateX(0.3deg) rotateY(0.3deg);
     transition: all var(--transition-speed) ease, transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);

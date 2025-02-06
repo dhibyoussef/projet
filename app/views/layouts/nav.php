@@ -1,7 +1,37 @@
 <?php
-// Start session if not already started
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+try {
+    // Start session with secure settings if not already started
+    if (session_status() === PHP_SESSION_NONE) {
+        $sessionParams = session_get_cookie_params();
+        if (!session_set_cookie_params([
+            'lifetime' => $sessionParams['lifetime'],
+            'path' => '/',
+            'domain' => $sessionParams['domain'],
+            'secure' => true,
+            'httponly' => true,
+            'samesite' => 'Strict'
+        ])) {
+            throw new Exception('Failed to set secure session parameters');
+        }
+        
+        if (!session_start()) {
+            throw new Exception('Failed to start session');
+        }
+        
+        // Generate CSRF token if it doesn't exist
+        if (!isset($_SESSION['csrf_token'])) {
+            try {
+                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+            } catch (Exception $e) {
+                throw new Exception('Failed to generate CSRF token');
+            }
+        }
+    }
+} catch (Exception $e) {
+    // Log the error and store for window animation
+    error_log('Navigation Error: ' . $e->getMessage());
+    $_SESSION['error_message'] = 'A system error occurred. Please try again later.';
+    $_SESSION['error_animation'] = 'windowShake';
 }
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
@@ -30,7 +60,11 @@ if (session_status() === PHP_SESSION_NONE) {
                     <a class="nav-link" href="<?php echo htmlspecialchars($baseUrl ?? ''); ?>/profile">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?php echo htmlspecialchars($baseUrl ?? ''); ?>/logout">Logout</a>
+                    <form action="<?php echo htmlspecialchars($baseUrl ?? ''); ?>/logout" method="POST"
+                        class="nav-link-form">
+                        <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+                        <button type="submit" class="nav-link btn btn-link">Logout</button>
+                    </form>
                 </li>
                 <?php else: ?>
                 <li class="nav-item">
@@ -44,3 +78,33 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
     </div>
 </nav>
+<?php if (isset($_SESSION['error_message'])): ?>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const errorWindow = document.createElement('div');
+    errorWindow.className =
+        'alert alert-danger animate__animated animate__<?php echo $_SESSION['error_animation'] ?? 'shakeX'; ?>';
+    errorWindow.style.position = 'fixed';
+    errorWindow.style.top = '20px';
+    errorWindow.style.right = '20px';
+    errorWindow.style.zIndex = '10000';
+    errorWindow.innerHTML = `
+            <?php echo htmlspecialchars($_SESSION['error_message']); ?>
+            <button type="button" class="close" onclick="this.parentElement.remove()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        `;
+    document.body.appendChild(errorWindow);
+
+    // Auto-dismiss after 5 seconds
+    setTimeout(() => {
+        errorWindow.classList.remove(
+        'animate__<?php echo $_SESSION['error_animation'] ?? 'shakeX'; ?>');
+        errorWindow.classList.add('animate__fadeOut');
+        setTimeout(() => errorWindow.remove(), 500);
+    }, 5000);
+
+    <?php unset($_SESSION['error_message']); unset($_SESSION['error_animation']); ?>
+});
+</script>
+<?php endif; ?>

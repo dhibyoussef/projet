@@ -1,0 +1,32 @@
+{
+    "timestamp": "2025-02-06 19:12:52",
+    "message": "Unauthorized access attempt to nutrition view",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "9debe8d74752f57846fe3c7b67060b1675221440e355da7a451aba7447a2522e"
+}
+{
+    "timestamp": "2025-02-06 19:44:54",
+    "message": "Unauthorized access attempt to nutrition view",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "c607f101cb3fc530669f583527acd5bb4b193ec3b152107e28171c7bd448b46a"
+}
+{
+    "timestamp": "2025-02-06 20:25:22",
+    "message": "Unauthorized access attempt to nutrition view",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "4893a0395b099fa43984860d940ec31b1a3693f31841097dbc1f5d1fdd457626"
+}
+{
+    "timestamp": "2025-02-06 20:33:49",
+    "message": "Unauthorized access attempt to nutrition view",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "b1a8ea4f41c663dbc247973edc6e585e1b22cdc53bfbb39e636ed585f8553762"
+}
