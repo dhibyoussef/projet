@@ -1,4 +1,4 @@
-s<?php 
+<?php 
 try {
     // Start session with secure settings if not already started
     if (session_status() === PHP_SESSION_NONE) {
@@ -36,9 +36,9 @@ try {
     }
     include $headerPath;
 } catch (Exception $e) {
-    error_log("403 page initialization error: " . $e->getMessage());
+    error_log("403 page initialization error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
     http_response_code(500);
-    exit('An error occurred while loading the 403 page');
+    exit(htmlspecialchars('An error occurred while loading the 403 page', ENT_QUOTES, 'UTF-8'));
 }
 ?>
 
@@ -51,12 +51,14 @@ try {
         <div class="content" style="padding: 20px;">
             <p class="lead">Access Denied: You do not have the necessary permissions to view this page.</p>
             <hr class="my-4">
-            <p>Please verify your access rights or return to the <a href="/fitness_tracker/public/index.php"
+            <p>Please verify your access rights or return to the <a
+                    href="<?php echo htmlspecialchars('/fitness_tracker/public/index.php', ENT_QUOTES, 'UTF-8'); ?>"
                     class="alert-link">home page</a>.</p>
             <?php if (isset($_SESSION['error_message'])): ?>
             <div class="mt-3">
                 <p class="mb-0">Additional information:</p>
-                <p class="font-weight-bold"><?php echo htmlspecialchars($_SESSION['error_message']); ?></p>
+                <p class="font-weight-bold">
+                    <?php echo htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8'); ?></p>
             </div>
             <?php 
                 unset($_SESSION['error_message']);
@@ -66,7 +68,8 @@ try {
             <?php if (isset($_SESSION['csrf_token_error'])): ?>
             <div class="mt-3">
                 <p class="mb-0">Security Notice:</p>
-                <p class="font-weight-bold"><?php echo htmlspecialchars($_SESSION['csrf_token_error']); ?></p>
+                <p class="font-weight-bold">
+                    <?php echo htmlspecialchars($_SESSION['csrf_token_error'], ENT_QUOTES, 'UTF-8'); ?></p>
             </div>
             <?php 
                 unset($_SESSION['csrf_token_error']);
@@ -96,8 +99,8 @@ try {
     }
     include $footerPath;
 } catch (Exception $e) {
-    error_log("403 page footer error: " . $e->getMessage());
+    error_log("403 page footer error: " . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
     http_response_code(500);
-    exit('An error occurred while loading the page footer');
+    exit(htmlspecialchars('An error occurred while loading the page footer', ENT_QUOTES, 'UTF-8'));
 }
 ?>

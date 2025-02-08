@@ -32,7 +32,7 @@ if (session_status() === PHP_SESSION_NONE) {
     } catch (Exception $e) {
         error_log('Session initialization error: ' . $e->getMessage());
         http_response_code(500);
-        die('System error. Please try again later.');
+        die(htmlspecialchars('System error. Please try again later.', ENT_QUOTES, 'UTF-8'));
     }
 }
 
@@ -42,16 +42,18 @@ try {
 } catch (Exception $e) {
     error_log('Header inclusion error: ' . $e->getMessage());
     http_response_code(500);
-    die('System error. Please try again later.');
+    die(htmlspecialchars('System error. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>
-<link rel="stylesheet" href="assets/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="<?php echo htmlspecialchars('assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ENT_QUOTES, 'UTF-8'); ?>">
 
 <style>
 body {
-    background-image: url('assets/g.jpg');
+    background-image: url('<?php echo htmlspecialchars('assets/g.jpg', ENT_QUOTES, 'UTF-8'); ?>');
     background-size: cover;
 }
 
@@ -90,7 +92,9 @@ body {
 <div class="container">
     <h1 class="mb-4">Login</h1>
     <div id="message-container"></div>
-    <form method="POST" action="../../controllers/user/LoginController.php" class="needs-validation" novalidate>
+    <form method="POST"
+        action="<?php echo htmlspecialchars('../../controllers/user/LoginController.php', ENT_QUOTES, 'UTF-8'); ?>"
+        class="needs-validation" novalidate>
         <?php if (!empty($_SESSION['csrf_token'])): ?>
         <input type="hidden" name="csrf_token"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
@@ -109,7 +113,8 @@ body {
         </div>
         <button type="submit" class="btn btn-primary" name="login">Login</button>
     </form>
-    <p class="mt-3">Don't have an account? <a href="signup.php">Sign up here</a>.</p>
+    <p class="mt-3">Don't have an account? <a
+            href="<?php echo htmlspecialchars('signup.php', ENT_QUOTES, 'UTF-8'); ?>">Sign up here</a>.</p>
 </div>
 
 <!-- Error Modal -->
@@ -131,8 +136,11 @@ body {
     </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo htmlspecialchars('https://code.jquery.com/jquery-3.6.0.min.js', ENT_QUOTES, 'UTF-8'); ?>">
+</script>
+<script
+    src="<?php echo htmlspecialchars('https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js', ENT_QUOTES, 'UTF-8'); ?>">
+</script>
 <script>
 $(document).ready(function() {
     // Handle form submission
@@ -164,7 +172,7 @@ $(document).ready(function() {
 
     // Show initial session message if exists
     <?php if (!empty($_SESSION['message'])): ?>
-    showErrorModal('<?php echo addslashes($_SESSION['message']); ?>');
+    showErrorModal('<?php echo htmlspecialchars(addslashes($_SESSION['message']), ENT_QUOTES, 'UTF-8'); ?>');
     <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
 });
@@ -176,6 +184,6 @@ try {
 } catch (Exception $e) {
     error_log('Footer inclusion error: ' . $e->getMessage());
     http_response_code(500);
-    die('System error. Please try again later.');
+    die(htmlspecialchars('System error. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>

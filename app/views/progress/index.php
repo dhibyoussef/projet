@@ -28,7 +28,7 @@ if (session_status() === PHP_SESSION_NONE) {
         }
     } catch (Exception $e) {
         error_log('Session initialization error: ' . $e->getMessage());
-        die('An error occurred while initializing the session. Please try again later.');
+        die(htmlspecialchars('An error occurred while initializing the session. Please try again later.', ENT_QUOTES, 'UTF-8'));
     }
 }
 
@@ -45,10 +45,11 @@ try {
     include '../../views/layouts/header.php'; 
 } catch (Exception $e) {
     error_log('Header inclusion error: ' . $e->getMessage());
-    die('An error occurred while loading the page header. Please try again later.');
+    die(htmlspecialchars('An error occurred while loading the page header. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>
-<link rel="stylesheet" href="../../views/progress/assets/bootstrap.css">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('../../views/progress/assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <div class="container mt-5">
@@ -65,7 +66,8 @@ try {
         <?php unset($_SESSION['message']); ?>
         <?php endif; ?>
     </div>
-    <a href="../../views/progress/create.php" class="btn btn-success mb-3">Log New Progress</a>
+    <a href="<?php echo htmlspecialchars('../../views/progress/create.php', ENT_QUOTES, 'UTF-8'); ?>"
+        class="btn btn-success mb-3">Log New Progress</a>
     <div class="table-responsive">
         <table class="table table-striped table-hover">
             <thead class="thead-dark">
@@ -87,10 +89,11 @@ try {
                     <td><?php echo htmlspecialchars($progress['weight'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($progress['body_fat'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td>
-                        <a href="../../views/progress/edit.php?id=<?php echo htmlspecialchars($progress['id'], ENT_QUOTES, 'UTF-8'); ?>"
+                        <a href="<?php echo htmlspecialchars('../../views/progress/edit.php?id=' . $progress['id'], ENT_QUOTES, 'UTF-8'); ?>"
                             class="btn btn-warning btn-sm">Edit</a>
-                        <form action="../../controllers/progress/DeleteController.php" method="POST"
-                            style="display:inline;" onsubmit="return handleDelete(event, this)">
+                        <form
+                            action="<?php echo htmlspecialchars('../../controllers/progress/DeleteController.php', ENT_QUOTES, 'UTF-8'); ?>"
+                            method="POST" style="display:inline;" onsubmit="return handleDelete(event, this)">
                             <input type="hidden" name="id"
                                 value="<?php echo htmlspecialchars($progress['id'], ENT_QUOTES, 'UTF-8'); ?>">
                             <?php if (isset($_SESSION['csrf_token'])): ?>
@@ -170,6 +173,6 @@ try {
     include '../../views/layouts/footer.php'; 
 } catch (Exception $e) {
     error_log('Footer inclusion error: ' . $e->getMessage());
-    die('An error occurred while loading the page footer. Please try again later.');
+    die(htmlspecialchars('An error occurred while loading the page footer. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>

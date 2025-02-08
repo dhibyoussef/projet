@@ -35,18 +35,19 @@ try {
     include '../layouts/header.php'; 
 } catch (Exception $e) {
     // Instead of redirecting, show error in the same page
-    $errorMessage = $e->getMessage();
+    $errorMessage = htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
 }
 ?>
-<link rel="stylesheet" href="assets/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="<?php echo htmlspecialchars('assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ENT_QUOTES, 'UTF-8'); ?>">
 <div class="container">
     <h1 class="mb-4">Edit Progress Entry</h1>
 
     <div id="message-container" class="position-fixed top-0 end-0 p-3" style="z-index: 9999;">
         <?php if (isset($errorMessage)): ?>
         <div class="alert alert-danger animate__animated animate__shakeX" role="alert">
-            <?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?>
+            <?php echo $errorMessage; ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         <?php endif; ?>
@@ -70,7 +71,7 @@ try {
     </div>
 
     <form method="POST"
-        action="../../controllers/progress/UpdateController.php?id=<?php echo htmlspecialchars($progress['id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+        action="<?php echo htmlspecialchars('../../controllers/progress/UpdateController.php?id=' . ($progress['id'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>"
         class="needs-validation" novalidate>
         <input type="hidden" name="csrf_token"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
@@ -95,7 +96,7 @@ try {
             <div class="invalid-feedback">Please enter a valid body fat percentage (0-100).</div>
         </div>
         <button type="submit" class="btn btn-primary" name="ok">Update Entry</button>
-        <a href="index.php" class="btn btn-secondary">Cancel</a>
+        <a href="<?php echo htmlspecialchars('index.php', ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 <?php include '../layouts/footer.php'; ?>

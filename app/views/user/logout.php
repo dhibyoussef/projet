@@ -81,7 +81,7 @@ try {
     $_SESSION['csrf_token_expire'] = time() + 3600; // Token expires in 1 hour
 
     // Output message with animation
-    echo '<div id="logout-message" class="message-animation">'.$message.'</div>';
+    echo '<div id="logout-message" class="message-animation">'.htmlspecialchars($message, ENT_QUOTES, 'UTF-8').'</div>';
     echo '<style>
         .message-animation {
             position: fixed;
@@ -117,10 +117,11 @@ try {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
+    $errorMessage = 'An error occurred during logout. Please try again.';
     echo '<div id="error-window" class="window-animation">
-            <div class="window-header">Error</div>
-            <div class="window-content">An error occurred during logout. Please try again.</div>
-            <button onclick="closeErrorWindow()" class="window-button">OK</button>
+            <div class="window-header">'.htmlspecialchars('Error', ENT_QUOTES, 'UTF-8').'</div>
+            <div class="window-content">'.htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8').'</div>
+            <button onclick="closeErrorWindow()" class="window-button">'.htmlspecialchars('OK', ENT_QUOTES, 'UTF-8').'</button>
           </div>';
     echo '<style>
         .window-animation {

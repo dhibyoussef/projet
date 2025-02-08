@@ -21,7 +21,7 @@ try {
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                 $_SESSION['csrf_token_expire'] = time() + 3600; // 1 hour expiration
             } catch (Exception $e) {
-                throw new Exception('Failed to generate CSRF token: ' . $e->getMessage());
+                throw new Exception('Failed to generate CSRF token: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
             }
         }
     }
@@ -34,7 +34,7 @@ try {
 
     include '../layouts/header.php'; 
 } catch (Exception $e) {
-    error_log('Error in nutrition/create.php: ' . $e->getMessage());
+    error_log('Error in nutrition/create.php: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
     header('Location: /fitness_tracker/public/error?code=500');
     exit();
 }
@@ -53,7 +53,8 @@ try {
         <?php endif; ?>
         <div class="form-group">
             <label for="date">Date</label>
-            <input type="date" class="form-control" name="date" id="date" required max="<?php echo date('Y-m-d'); ?>">
+            <input type="date" class="form-control" name="date" id="date" required
+                max="<?php echo htmlspecialchars(date('Y-m-d'), ENT_QUOTES, 'UTF-8'); ?>">
             <div class="invalid-feedback">Please select a valid date.</div>
         </div>
         <div class="form-group">

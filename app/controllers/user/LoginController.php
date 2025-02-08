@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     
     // Set success message and redirect
     $_SESSION['success_message'] = 'Login successful!';
-    header('Location:../../user/profile.php?id=' . $_SESSION['user_id']);
+    header('Location: ../../views/user/profile.php?id=' . $_SESSION['user_id']);
     exit();
 }
 ?>

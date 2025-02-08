@@ -38,7 +38,7 @@ try {
         throw new Exception('Failed to include header file');
     }
 } catch (Exception $e) {
-    echo '<div class="alert alert-danger animate__animated animate__bounce" role="alert">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+    echo '<div class="alert alert-danger animate__animated animate__bounce" role="alert">Error: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8') . '</div>';
     error_log('Error in workout/show.php: ' . $e->getMessage());
 }
 ?>
@@ -61,25 +61,29 @@ try {
             $_SESSION['csrf_token_time'] = time();
         }
     } catch (Exception $e) {
-        echo '<div class="alert alert-danger animate__animated animate__bounce" role="alert">Security Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+        echo '<div class="alert alert-danger animate__animated animate__bounce" role="alert">Security Error: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8') . '</div>';
         error_log('CSRF token generation error: ' . $e->getMessage());
     }
     ?>
-    <h1 class="mb-4"><?php echo htmlspecialchars($workout['name'] ?? 'Unknown Workout', ENT_QUOTES, 'UTF-8'); ?></h1>
+    <h1 class="mb-4">
+        <?php echo htmlspecialchars($workout['name'] ?? 'Unknown Workout', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'); ?>
+    </h1>
     <p><strong>Description:</strong>
-        <?php echo htmlspecialchars($workout['description'] ?? 'No description available', ENT_QUOTES, 'UTF-8'); ?></p>
-    <p><strong>Duration:</strong> <?php echo htmlspecialchars($workout['duration'] ?? '0', ENT_QUOTES, 'UTF-8'); ?>
+        <?php echo htmlspecialchars($workout['description'] ?? 'No description available', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'); ?>
+    </p>
+    <p><strong>Duration:</strong>
+        <?php echo htmlspecialchars($workout['duration'] ?? '0', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'); ?>
         minutes</p>
     <form action="edit.php" method="GET" style="display: inline;">
         <input type="hidden" name="csrf_token"
-            value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+            value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'); ?>">
         <input type="hidden" name="id"
-            value="<?php echo htmlspecialchars($workout['id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+            value="<?php echo htmlspecialchars($workout['id'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'); ?>">
         <button type="submit" class="btn btn-warning">Edit Workout</button>
     </form>
     <form action="index.php" method="GET" style="display: inline;">
         <input type="hidden" name="csrf_token"
-            value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+            value="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8'); ?>">
         <button type="submit" class="btn btn-secondary">Back to Workouts</button>
     </form>
 </div>
@@ -89,7 +93,7 @@ try {
         throw new Exception('Failed to include footer file');
     }
 } catch (Exception $e) {
-    echo '<div class="alert alert-danger animate__animated animate__bounce" role="alert">Error: ' . htmlspecialchars($e->getMessage()) . '</div>';
+    echo '<div class="alert alert-danger animate__animated animate__bounce" role="alert">Error: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML5, 'UTF-8') . '</div>';
     error_log('Error including footer: ' . $e->getMessage());
 }
 ?>

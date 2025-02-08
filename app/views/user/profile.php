@@ -48,15 +48,17 @@ try {
     }
 } catch (Exception $e) {
     // Show error message in the same page with animation
-    $_SESSION['message'] = $e->getMessage();
+    $_SESSION['message'] = htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
     $_SESSION['message_type'] = 'danger';
-    header('Location: ' . $_SERVER['REQUEST_URI']);
+    header('Location: ' . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8'));
     exit();
 }
 ?>
-<link rel="stylesheet" href="assets/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="<?php echo htmlspecialchars('assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ENT_QUOTES, 'UTF-8'); ?>">
+<script src="<?php echo htmlspecialchars('https://unpkg.com/axios/dist/axios.min.js', ENT_QUOTES, 'UTF-8'); ?>">
+</script>
 <div class="container">
     <h1 class="mb-4">Your Profile</h1>
     <div id="message-container" class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
@@ -75,13 +77,14 @@ try {
         <?php echo isset($user['name']) ? htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8') : 'N/A'; ?></p>
     <p><strong>Email:</strong>
         <?php echo isset($user['email']) ? htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8') : 'N/A'; ?></p>
-    <form action="update.php" method="get" style="display: inline;" onsubmit="return handleFormSubmit(event)">
+    <form action="<?php echo htmlspecialchars('update.php', ENT_QUOTES, 'UTF-8'); ?>" method="get"
+        style="display: inline;" onsubmit="return handleFormSubmit(event)">
         <input type="hidden" name="csrf_token"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <button type="submit" class="btn btn-warning">Edit Profile</button>
     </form>
-    <form action="../../views/user/delete.php" method="get" style="display: inline;"
-        onsubmit="return handleFormSubmit(event)">
+    <form action="<?php echo htmlspecialchars('../../views/user/delete.php', ENT_QUOTES, 'UTF-8'); ?>" method="get"
+        style="display: inline;" onsubmit="return handleFormSubmit(event)">
         <input type="hidden" name="csrf_token"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <button type="submit" class="btn btn-danger" name="ok"
@@ -139,9 +142,9 @@ function showMessage(message, type) {
 try {
     include '../layouts/footer.php';
 } catch (Exception $e) {
-    $_SESSION['message'] = $e->getMessage();
+    $_SESSION['message'] = htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
     $_SESSION['message_type'] = 'danger';
-    header('Location: ' . $_SERVER['REQUEST_URI']);
+    header('Location: ' . htmlspecialchars($_SERVER['REQUEST_URI'], ENT_QUOTES, 'UTF-8'));
     exit();
 }
 ?>

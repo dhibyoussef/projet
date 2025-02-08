@@ -25,8 +25,9 @@ require_once '../../../config/error.php';
 
 // Check if user is logged in
 if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
-    $_SESSION['error_message'] = 'You must be logged in to view nutrition.';
-    $_SESSION['error_animation'] = 'shake';
+    $_SESSION['window_message'] = 'You must be logged in to view nutrition.';
+    $_SESSION['window_style'] = 'danger';
+    $_SESSION['window_animation'] = 'shake';
     header('Location: ' . $_SERVER['HTTP_REFERER']);
     exit();
 }

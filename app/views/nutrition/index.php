@@ -132,7 +132,7 @@ try {
     <div class="message-container">
         <?php if (isset($_SESSION['error_message'])): ?>
         <div class="alert alert-danger alert-animated">
-            <?php echo htmlspecialchars($_SESSION['error_message']); ?>
+            <?php echo htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8'); ?>
             <button type="button" class="close" onclick="this.parentElement.remove()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -141,7 +141,7 @@ try {
         <?php endif; ?>
         <?php if (isset($_SESSION['success_message'])): ?>
         <div class="alert alert-success alert-animated">
-            <?php echo htmlspecialchars($_SESSION['success_message']); ?>
+            <?php echo htmlspecialchars($_SESSION['success_message'], ENT_QUOTES, 'UTF-8'); ?>
             <button type="button" class="close" onclick="this.parentElement.remove()">
                 <span aria-hidden="true">&times;</span>
             </button>

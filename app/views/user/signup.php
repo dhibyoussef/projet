@@ -41,12 +41,13 @@ try {
         throw new Exception('Failed to include header file');
     }
 } catch (Exception $e) {
-    error_log('Error in signup.php: ' . $e->getMessage());
-    die('An error occurred while processing your request. Please try again later.');
+    error_log('Error in signup.php: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+    die(htmlspecialchars('An error occurred while processing your request. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>
-<link rel="stylesheet" href="assets/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="<?php echo htmlspecialchars('assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ENT_QUOTES, 'UTF-8'); ?>">
 <div class="container">
     <h1 class="mb-4">Sign Up</h1>
     <div id="message-container" class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
@@ -61,7 +62,9 @@ try {
         <?php unset($_SESSION['message']); ?>
         <?php endif; ?>
     </div>
-    <form method="POST" action="../../controllers/user/SignupController.php" class="needs-validation" novalidate>
+    <form method="POST"
+        action="<?php echo htmlspecialchars('../../controllers/user/SignupController.php', ENT_QUOTES, 'UTF-8'); ?>"
+        class="needs-validation" novalidate>
         <input type="hidden" name="csrf_token"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <div class="form-group">
@@ -82,9 +85,11 @@ try {
         </div>
         <button type="submit" class="btn btn-success" name="signup">Sign Up</button>
     </form>
-    <p class="mt-3">Already have an account? <a href="login.php">Login here</a>.</p>
+    <p class="mt-3">Already have an account? <a
+            href="<?php echo htmlspecialchars('login.php', ENT_QUOTES, 'UTF-8'); ?>">Login here</a>.</p>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="<?php echo htmlspecialchars('https://code.jquery.com/jquery-3.6.0.min.js', ENT_QUOTES, 'UTF-8'); ?>">
+</script>
 <script>
 $(document).ready(function() {
     $('form').on('submit', function(e) {
@@ -97,7 +102,7 @@ $(document).ready(function() {
                 let data = JSON.parse(response);
                 let alertClass = data.success ? 'alert-success' : 'alert-danger';
                 let message = `<div class="alert ${alertClass} alert-dismissible animate__animated animate__fadeIn" role="alert">
-                    ${data.message}
+                    ${$('<div>').text(data.message).html()}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -112,7 +117,7 @@ $(document).ready(function() {
             },
             error: function(xhr, status, error) {
                 let message = `<div class="alert alert-danger alert-dismissible animate__animated animate__fadeIn" role="alert">
-                    An error occurred: ${error}
+                    An error occurred: ${$('<div>').text(error).html()}
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -133,6 +138,6 @@ $(document).ready(function() {
 try {
     include '../layouts/footer.php';
 } catch (Exception $e) {
-    error_log('Error including footer: ' . $e->getMessage());
+    error_log('Error including footer: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
 }
 ?>

@@ -39,7 +39,7 @@ try {
     }
 } catch (Exception $e) {
     error_log('Error in workout/create.php: ' . $e->getMessage());
-    die('An error occurred while processing your request. Please try again later.');
+    die(htmlspecialchars('An error occurred while processing your request. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>
 
@@ -65,7 +65,7 @@ try {
             }
         } catch (Exception $e) {
             error_log('CSRF token generation error: ' . $e->getMessage());
-            die('An error occurred while generating security token. Please try again.');
+            die(htmlspecialchars('An error occurred while generating security token. Please try again.', ENT_QUOTES, 'UTF-8'));
         }
         ?>
         <input type="hidden" name="csrf_token"
@@ -107,7 +107,7 @@ $(document).ready(function() {
                     // Parse the JSON response
                     var result = JSON.parse(response);
 
-                    // Create modal window
+                    // Create modal window with escaped content
                     var modalHtml = `
                         <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -119,7 +119,7 @@ $(document).ready(function() {
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        ${result.message}
+                                        ${$('<div/>').text(result.message).html()}
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -165,7 +165,7 @@ $(document).ready(function() {
                     </div>`;
                 $('#message-container').html(modalHtml);
                 $('#errorModal').modal('show').addClass(
-                'animate__animated animate__fadeIn');
+                    'animate__animated animate__fadeIn');
             }
         });
     });
@@ -179,6 +179,6 @@ try {
     }
 } catch (Exception $e) {
     error_log('Error including footer: ' . $e->getMessage());
-    die('An error occurred while processing your request. Please try again later.');
+    die(htmlspecialchars('An error occurred while processing your request. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>

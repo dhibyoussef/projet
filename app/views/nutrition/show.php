@@ -45,9 +45,9 @@ try {
     <h1 class="mb-4">Nutrition Entry Details</h1>
     <div id="message-container" class="position-fixed top-0 end-0 p-3" style="z-index: 9999">
         <?php if (isset($_SESSION['message'])): ?>
-        <div class="alert alert-<?php echo htmlspecialchars($_SESSION['message_type']); ?> alert-dismissible animate__animated animate__slideInRight"
+        <div class="alert alert-<?php echo htmlspecialchars($_SESSION['message_type'], ENT_QUOTES, 'UTF-8'); ?> alert-dismissible animate__animated animate__slideInRight"
             role="alert">
-            <?php echo htmlspecialchars($_SESSION['message']); ?>
+            <?php echo htmlspecialchars($_SESSION['message'], ENT_QUOTES, 'UTF-8'); ?>
             <button type="button" class="close" onclick="dismissMessage()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -57,16 +57,20 @@ try {
     </div>
     <div class="card">
         <div class="card-body">
-            <p><strong>Date:</strong> <?php echo htmlspecialchars($nutrition['date']); ?></p>
-            <p><strong>Food Item:</strong> <?php echo htmlspecialchars($nutrition['food_item']); ?></p>
-            <p><strong>Calories:</strong> <?php echo htmlspecialchars($nutrition['calories']); ?></p>
-            <p><strong>Protein:</strong> <?php echo htmlspecialchars($nutrition['protein']); ?> g</p>
-            <p><strong>Carbs:</strong> <?php echo htmlspecialchars($nutrition['carbs']); ?> g</p>
-            <p><strong>Fats:</strong> <?php echo htmlspecialchars($nutrition['fats']); ?> g</p>
+            <p><strong>Date:</strong> <?php echo htmlspecialchars($nutrition['date'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <p><strong>Food Item:</strong> <?php echo htmlspecialchars($nutrition['food_item'], ENT_QUOTES, 'UTF-8'); ?>
+            </p>
+            <p><strong>Calories:</strong> <?php echo htmlspecialchars($nutrition['calories'], ENT_QUOTES, 'UTF-8'); ?>
+            </p>
+            <p><strong>Protein:</strong> <?php echo htmlspecialchars($nutrition['protein'], ENT_QUOTES, 'UTF-8'); ?> g
+            </p>
+            <p><strong>Carbs:</strong> <?php echo htmlspecialchars($nutrition['carbs'], ENT_QUOTES, 'UTF-8'); ?> g</p>
+            <p><strong>Fats:</strong> <?php echo htmlspecialchars($nutrition['fats'], ENT_QUOTES, 'UTF-8'); ?> g</p>
         </div>
     </div>
     <div class="d-flex justify-content-between mt-4">
-        <a href="edit.php?id=<?php echo htmlspecialchars($nutrition['id']); ?>" class="btn btn-warning">Edit Entry</a>
+        <a href="edit.php?id=<?php echo htmlspecialchars($nutrition['id'], ENT_QUOTES, 'UTF-8'); ?>"
+            class="btn btn-warning">Edit Entry</a>
         <a href="index.php" class="btn btn-secondary">Back to Nutrition Log</a>
     </div>
 </div>

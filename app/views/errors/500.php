@@ -19,7 +19,7 @@ try {
     }
 
     // Set page title
-    $pageTitle = '500 Internal Server Error';
+    $pageTitle = htmlspecialchars('500 Internal Server Error', ENT_QUOTES, 'UTF-8');
 
     // Include header with error handling
     if (!@include '../../views/layouts/header.php') {
@@ -27,7 +27,7 @@ try {
     }
 
     // Add window shake animation styles
-    echo '<style>
+    echo htmlspecialchars('<style>
         @keyframes windowShake {
             0% { transform: translate(0, 0); }
             25% { transform: translate(-10px, 10px); }
@@ -38,11 +38,11 @@ try {
         .window-shake {
             animation: windowShake 0.5s;
         }
-    </style>';
+    </style>', ENT_QUOTES, 'UTF-8');
     ?>
 
 <div class="container mt-5">
-    <div class="alert alert-danger <?php echo isset($_SESSION['error_animation']) ? 'window-shake' : ''; ?>"
+    <div class="alert alert-danger <?php echo isset($_SESSION['error_animation']) ? htmlspecialchars('window-shake', ENT_QUOTES, 'UTF-8') : ''; ?>"
         role="alert">
         <h1 class="display-4">500 Internal Server Error</h1>
         <p class="lead">Something went wrong on our end. Please try again later.</p>
@@ -50,13 +50,15 @@ try {
         <?php if (isset($_SESSION['error_message'])): ?>
         <div class="mb-3">
             <p class="mb-0">Error Details:</p>
-            <p class="font-weight-bold"><?php echo htmlspecialchars($_SESSION['error_message']); ?></p>
+            <p class="font-weight-bold"><?php echo htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8'); ?>
+            </p>
         </div>
         <?php unset($_SESSION['error_message']); ?>
         <?php unset($_SESSION['error_animation']); ?>
         <?php endif; ?>
         <p>If the problem persists, please contact our support team.</p>
-        <a href="/fitness_tracker/public/index.php" class="btn btn-primary">Return to Home</a>
+        <a href="<?php echo htmlspecialchars('/fitness_tracker/public/index.php', ENT_QUOTES, 'UTF-8'); ?>"
+            class="btn btn-primary">Return to Home</a>
     </div>
 </div>
 
@@ -67,7 +69,7 @@ try {
     }
 } catch (Exception $e) {
     // Enhanced error display with window shake animation
-    echo '<style>
+    echo htmlspecialchars('<style>
         @keyframes windowShake {
             0% { transform: translate(0, 0); }
             25% { transform: translate(-10px, 10px); }
@@ -78,11 +80,11 @@ try {
         .window-shake {
             animation: windowShake 0.5s;
         }
-    </style>';
-    echo '<div class="container mt-5"><div class="alert alert-danger window-shake" role="alert">';
-    echo '<h1>Critical Error</h1>';
-    echo '<p>An unexpected error occurred while displaying this page.</p>';
-    echo '<p>Error: ' . htmlspecialchars($e->getMessage()) . '</p>';
-    echo '</div></div>';
+    </style>', ENT_QUOTES, 'UTF-8');
+    echo htmlspecialchars('<div class="container mt-5"><div class="alert alert-danger window-shake" role="alert">', ENT_QUOTES, 'UTF-8');
+    echo htmlspecialchars('<h1>Critical Error</h1>', ENT_QUOTES, 'UTF-8');
+    echo htmlspecialchars('<p>An unexpected error occurred while displaying this page.</p>', ENT_QUOTES, 'UTF-8');
+    echo htmlspecialchars('<p>Error: ' . $e->getMessage() . '</p>', ENT_QUOTES, 'UTF-8');
+    echo htmlspecialchars('</div></div>', ENT_QUOTES, 'UTF-8');
 }
 ?>

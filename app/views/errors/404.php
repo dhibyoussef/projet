@@ -32,7 +32,7 @@ try {
         throw new Exception('Failed to include header file');
     }
 } catch (Exception $e) {
-    $_SESSION['error_message'] = $e->getMessage();
+    $_SESSION['error_message'] = htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
     $_SESSION['error_animation'] = 'windowShake';
 }
 
@@ -61,18 +61,21 @@ echo '<style>
         <h1>404 Not Found</h1>
         <p>We're sorry, but the page you are looking for does not exist. It may have been removed, renamed, or is
             temporarily unavailable.</p>
-        <p>Please check the URL for errors or return to the <a href="/fitness_tracker/public/index.php">home page</a>.
+        <p>Please check the URL for errors or return to the <a
+                href="<?php echo htmlspecialchars('/fitness_tracker/public/index.php', ENT_QUOTES, 'UTF-8'); ?>">home
+                page</a>.
         </p>
 
         <?php if (isset($_SESSION['error_message'])): ?>
         <div class="error-message">
-            <?php echo htmlspecialchars($_SESSION['error_message']); ?>
+            <?php echo htmlspecialchars($_SESSION['error_message'], ENT_QUOTES, 'UTF-8'); ?>
         </div>
         <?php unset($_SESSION['error_message']); ?>
         <?php endif; ?>
 
         <?php if (isset($_SESSION['csrf_token'])): ?>
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+        <input type="hidden" name="csrf_token"
+            value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <?php endif; ?>
     </div>
 </div>
@@ -82,7 +85,7 @@ try {
         throw new Exception('Failed to include footer file');
     }
 } catch (Exception $e) {
-    $_SESSION['error_message'] = $e->getMessage();
+    $_SESSION['error_message'] = htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
     $_SESSION['error_animation'] = 'windowShake';
 }
 ?>

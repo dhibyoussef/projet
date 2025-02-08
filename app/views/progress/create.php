@@ -33,8 +33,8 @@ try {
         throw new Exception('Failed to include header file');
     }
 } catch (Exception $e) {
-    error_log('Error in progress/create.php: ' . $e->getMessage());
-    die('An error occurred while processing your request. Please try again later.');
+    error_log('Error in progress/create.php: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+    die(htmlspecialchars('An error occurred while processing your request. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>
 <link rel="stylesheet" href="assets/bootstrap.css">
@@ -98,20 +98,26 @@ $(document).ready(function() {
             method: 'POST',
             data: $(this).serialize(),
             success: function(response) {
-                let result = JSON.parse(response);
-                if (result.success) {
-                    $('#progress-form')[0].reset();
-                    let successWindow = $(`<div class="error-window animate__animated animate__fadeIn">
-                        <div class="alert alert-success">${result.message}</div>
-                        <button class="btn btn-sm btn-success w-100" onclick="$(this).parent().addClass('animate__fadeOut').remove()">OK</button>
-                    </div>`);
-                    $('body').append(successWindow);
-                } else {
-                    let errorWindow = $(`<div class="error-window animate__animated animate__shakeX">
-                        <div class="alert alert-danger">${result.message}</div>
-                        <button class="btn btn-sm btn-danger w-100" onclick="$(this).parent().addClass('animate__fadeOut').remove()">Close</button>
-                    </div>`);
-                    $('body').append(errorWindow);
+                try {
+                    let result = JSON.parse(response);
+                    if (result.success) {
+                        $('#progress-form')[0].reset();
+                        let successMessage = $('<div>').text(result.message).html();
+                        let successWindow = $(`<div class="error-window animate__animated animate__fadeIn">
+                            <div class="alert alert-success">${successMessage}</div>
+                            <button class="btn btn-sm btn-success w-100" onclick="$(this).parent().addClass('animate__fadeOut').remove()">OK</button>
+                        </div>`);
+                        $('body').append(successWindow);
+                    } else {
+                        let errorMessage = $('<div>').text(result.message).html();
+                        let errorWindow = $(`<div class="error-window animate__animated animate__shakeX">
+                            <div class="alert alert-danger">${errorMessage}</div>
+                            <button class="btn btn-sm btn-danger w-100" onclick="$(this).parent().addClass('animate__fadeOut').remove()">Close</button>
+                        </div>`);
+                        $('body').append(errorWindow);
+                    }
+                } catch (e) {
+                    console.error('Error parsing JSON response:', e);
                 }
             },
             error: function() {
@@ -130,6 +136,6 @@ $(document).ready(function() {
 try {
     include '../layouts/footer.php';
 } catch (Exception $e) {
-    error_log('Error including footer: ' . $e->getMessage());
+    error_log('Error including footer: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
 }
 ?>

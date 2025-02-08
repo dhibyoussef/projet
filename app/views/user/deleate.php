@@ -17,8 +17,8 @@ if (session_status() === PHP_SESSION_NONE) {
             throw new Exception('Failed to start session');
         }
     } catch (Exception $e) {
-        error_log('Session initialization error: ' . $e->getMessage());
-        die('An error occurred while initializing the session. Please try again later.');
+        error_log('Session initialization error: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+        die(htmlspecialchars('An error occurred while initializing the session. Please try again later.', ENT_QUOTES, 'UTF-8'));
     }
 }
 
@@ -32,12 +32,13 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
 try {
     include '../layouts/header.php';
 } catch (Exception $e) {
-    error_log('Error loading header: ' . $e->getMessage());
-    die('An error occurred while loading the page. Please try again later.');
+    error_log('Error loading header: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+    die(htmlspecialchars('An error occurred while loading the page. Please try again later.', ENT_QUOTES, 'UTF-8'));
 }
 ?>
-<link rel="stylesheet" href="assets/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="<?php echo htmlspecialchars('assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ENT_QUOTES, 'UTF-8'); ?>">
 <style>
 .error-window {
     position: fixed;
@@ -54,7 +55,7 @@ try {
 }
 </style>
 <div class="container">
-    <h1 class="mb-4">Delete Account</h1>
+    <h1 class="mb-4"><?php echo htmlspecialchars('Delete Account', ENT_QUOTES, 'UTF-8'); ?></h1>
     <div id="error-container" class="error-window animate__animated" style="display: none;">
         <div class="alert alert-danger" role="alert">
             <span id="error-message"></span>
@@ -63,8 +64,11 @@ try {
             </button>
         </div>
     </div>
-    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
-    <form method="POST" action="../../controllers/user/DeleteController.php" id="delete-form">
+    <p><?php echo htmlspecialchars('Are you sure you want to delete your account? This action cannot be undone.', ENT_QUOTES, 'UTF-8'); ?>
+    </p>
+    <form method="POST"
+        action="<?php echo htmlspecialchars('../../controllers/user/DeleteController.php', ENT_QUOTES, 'UTF-8'); ?>"
+        id="delete-form">
         <?php 
         // Generate CSRF token with expiration time (15 minutes)
         $csrfExpiration = 15 * 60; // 15 minutes in seconds
@@ -76,8 +80,8 @@ try {
                 $_SESSION['csrf_token_time'] = time();
             }
         } catch (Exception $e) {
-            error_log('CSRF token generation error: ' . $e->getMessage());
-            die('An error occurred while processing your request. Please try again.');
+            error_log('CSRF token generation error: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
+            die(htmlspecialchars('An error occurred while processing your request. Please try again.', ENT_QUOTES, 'UTF-8'));
         }
         ?>
         <input type="hidden" name="csrf_token"
@@ -85,8 +89,7 @@ try {
         <input type="hidden" name="csrf_token_time"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token_time'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <button type="submit" class="btn btn-danger" name="ok"
-            onclick="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">Delete
-            My Account</button>
+            onclick="return confirm('<?php echo htmlspecialchars('Are you sure you want to delete your account? This action cannot be undone.', ENT_QUOTES, 'UTF-8'); ?>');"><?php echo htmlspecialchars('Delete My Account', ENT_QUOTES, 'UTF-8'); ?></button>
     </form>
 </div>
 <script>
@@ -125,7 +128,9 @@ document.getElementById('delete-form').addEventListener('submit', function(e) {
             }
         })
         .catch(error => {
-            showError('An error occurred while processing your request. Please try again.');
+            showError(
+                '<?php echo htmlspecialchars('An error occurred while processing your request. Please try again.', ENT_QUOTES, 'UTF-8'); ?>'
+                );
         });
 });
 </script>
@@ -133,7 +138,7 @@ document.getElementById('delete-form').addEventListener('submit', function(e) {
 try {
     include '../layouts/footer.php';
 } catch (Exception $e) {
-    error_log('Error loading footer: ' . $e->getMessage());
+    error_log('Error loading footer: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
     // Continue execution even if footer fails
 }
 ?>

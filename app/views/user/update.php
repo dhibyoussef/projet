@@ -45,14 +45,15 @@ try {
         throw new Exception('Failed to include header file');
     }
 } catch (Exception $e) {
-    error_log('Error in user update view: ' . $e->getMessage());
+    error_log('Error in user update view: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
     // Store error message for display
     $_SESSION['message'] = 'An error occurred while loading the page. Please try again later.';
     $_SESSION['message_type'] = 'danger';
 }
 ?>
-<link rel="stylesheet" href="assets/bootstrap.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+<link rel="stylesheet" href="<?php echo htmlspecialchars('assets/bootstrap.css', ENT_QUOTES, 'UTF-8'); ?>">
+<link rel="stylesheet"
+    href="<?php echo htmlspecialchars('https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css', ENT_QUOTES, 'UTF-8'); ?>">
 <style>
 .error-window {
     position: fixed;
@@ -85,9 +86,9 @@ try {
     <h1 class="mb-4">Update Profile</h1>
     <?php if (isset($_SESSION['message'])): ?>
     <div class="error-window">
-        <div class="alert alert-<?php echo htmlspecialchars($_SESSION['message_type']); ?> alert-dismissible"
+        <div class="alert alert-<?php echo htmlspecialchars($_SESSION['message_type'], ENT_QUOTES, 'UTF-8'); ?> alert-dismissible"
             role="alert">
-            <?php echo htmlspecialchars($_SESSION['message']); ?>
+            <?php echo htmlspecialchars($_SESSION['message'], ENT_QUOTES, 'UTF-8'); ?>
             <button type="button" class="close" onclick="dismissError()">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -95,19 +96,21 @@ try {
     </div>
     <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
-    <form method="POST" action="../../controllers/user/UpdateController.php" class="needs-validation" novalidate>
+    <form method="POST"
+        action="<?php echo htmlspecialchars('../../controllers/user/UpdateController.php', ENT_QUOTES, 'UTF-8'); ?>"
+        class="needs-validation" novalidate>
         <input type="hidden" name="csrf_token"
             value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'); ?>">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" id="name"
-                value="<?php echo htmlspecialchars($user['name']); ?>" required>
+                value="<?php echo htmlspecialchars($user['name'], ENT_QUOTES, 'UTF-8'); ?>" required>
             <div class="invalid-feedback">Please enter your name.</div>
         </div>
         <div class="form-group">
             <label for="email">Email</label>
             <input type="email" class="form-control" name="email" id="email"
-                value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                value="<?php echo htmlspecialchars($user['email'], ENT_QUOTES, 'UTF-8'); ?>" required>
             <div class="invalid-feedback">Please enter your email.</div>
         </div>
         <button type="submit" class="btn btn-primary" name="update">Update Profile</button>
@@ -127,6 +130,6 @@ try {
         throw new Exception('Failed to include footer file');
     }
 } catch (Exception $e) {
-    error_log('Error including footer: ' . $e->getMessage());
+    error_log('Error including footer: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8'));
 }
 ?>

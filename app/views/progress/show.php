@@ -111,25 +111,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageContainer = document.getElementById('message-container');
 
     function showMessage(message, type) {
-        messageContainer.innerHTML = `
-            <div class="alert alert-${type} alert-dismissible fade show animate__animated animate__bounceIn" role="alert">
-                ${message}
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-        `;
+        // Create text node for message to prevent XSS
+        const messageText = document.createTextNode(message);
+        const alertDiv = document.createElement('div');
+        alertDiv.className =
+            `alert alert-${type} alert-dismissible fade show animate__animated animate__bounceIn`;
+        alertDiv.setAttribute('role', 'alert');
+
+        // Create close button
+        const closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'close';
+        closeButton.setAttribute('data-dismiss', 'alert');
+        closeButton.setAttribute('aria-label', 'Close');
+        closeButton.innerHTML = '<span aria-hidden="true">&times;</span>';
+
+        // Append elements safely
+        alertDiv.appendChild(messageText);
+        alertDiv.appendChild(closeButton);
+        messageContainer.innerHTML = '';
+        messageContainer.appendChild(alertDiv);
 
         // Remove message after 5 seconds
         setTimeout(() => {
-            const alert = messageContainer.querySelector('.alert');
-            if (alert) {
-                alert.classList.remove('animate__bounceIn');
-                alert.classList.add('animate__fadeOut');
-                setTimeout(() => {
-                    alert.remove();
-                }, 500);
-            }
+            alertDiv.classList.remove('animate__bounceIn');
+            alertDiv.classList.add('animate__fadeOut');
+            setTimeout(() => {
+                alertDiv.remove();
+            }, 500);
         }, 5000);
     }
 
@@ -146,7 +155,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check for session message
     <?php if (isset($_SESSION['message'])): ?>
-    showMessage(`<?php echo addslashes($_SESSION['message']); ?>`, '<?php echo $_SESSION['message_type']; ?>');
+    showMessage(<?php echo json_encode($_SESSION['message']); ?>,
+        <?php echo json_encode($_SESSION['message_type']); ?>);
     <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
 });

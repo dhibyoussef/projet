@@ -1,25 +1,21 @@
 <footer class="footer mt-auto py-3 bg-dark">
     <div class="container text-center">
-        <p class="mb-0 text-white">&copy; <?php echo date("Y"); ?> Fitness Tracker. All rights reserved.</p>
+        <p class="mb-0 text-white">&copy; <?php echo htmlspecialchars(date("Y"), ENT_QUOTES, 'UTF-8'); ?> Fitness Tracker. All rights reserved.</p>
         <nav class="mt-2">
             <ul class="list-inline mb-0">
-                <li class="list-inline-item"><a href="/fitness_tracker/public/privacy" class="text-light">Privacy
-                        Policy</a></li>
+                <li class="list-inline-item"><a href="<?php echo htmlspecialchars('/fitness_tracker/public/privacy', ENT_QUOTES, 'UTF-8'); ?>" class="text-light">Privacy Policy</a></li>
                 <li class="list-inline-item"><span class="text-light">|</span></li>
-                <li class="list-inline-item"><a href="/fitness_tracker/public/terms" class="text-light">Terms of
-                        Service</a></li>
+                <li class="list-inline-item"><a href="<?php echo htmlspecialchars('/fitness_tracker/public/terms', ENT_QUOTES, 'UTF-8'); ?>" class="text-light">Terms of Service</a></li>
                 <li class="list-inline-item"><span class="text-light">|</span></li>
-                <li class="list-inline-item"><a href="/fitness_tracker/public/contact" class="text-light">Contact Us</a>
-                </li>
+                <li class="list-inline-item"><a href="<?php echo htmlspecialchars('/fitness_tracker/public/contact', ENT_QUOTES, 'UTF-8'); ?>" class="text-light">Contact Us</a></li>
             </ul>
         </nav>
     </div>
 </footer>
-<script src="/fitness_tracker/public/assets/js/bootstrap.bundle.min.js"></script>
+<script src="<?php echo htmlspecialchars('/fitness_tracker/public/assets/js/bootstrap.bundle.min.js', ENT_QUOTES, 'UTF-8'); ?>"></script>
 <script>
 // CSRF token handling with error checking
-const csrfToken =
-    "<?php echo isset($_SESSION['csrf_token']) ? htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') : ''; ?>";
+const csrfToken = "<?php echo isset($_SESSION['csrf_token']) ? htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') : ''; ?>";
 
 // Window-based error notification system
 const windowErrorSystem = {
@@ -81,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     throw new Error('CSRF token is missing');
                 }
 
-                fetch('/fitness_tracker/public/session_check.php', {
+                fetch('<?php echo htmlspecialchars('/fitness_tracker/public/session_check.php', ENT_QUOTES, 'UTF-8'); ?>', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -102,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             clearInterval(sessionCheckInterval);
                             windowErrorSystem.show('Session expired. Redirecting...', 'warning');
                             setTimeout(() => {
-                                window.location.href = '/fitness_tracker/public/logout';
+                                window.location.href = '<?php echo htmlspecialchars('/fitness_tracker/public/logout', ENT_QUOTES, 'UTF-8'); ?>';
                             }, 2000);
                         }
                     })
@@ -139,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Handle session error messages
         <?php if (isset($_SESSION['error_message'])): ?>
-        windowErrorSystem.show(`<?php echo addslashes($_SESSION['error_message']); ?>`);
+        windowErrorSystem.show(`<?php echo htmlspecialchars(addslashes($_SESSION['error_message']), ENT_QUOTES, 'UTF-8'); ?>`);
         <?php unset($_SESSION['error_message']); ?>
         <?php endif; ?>
 

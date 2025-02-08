@@ -38,8 +38,8 @@ try {
                 }
                 $messages[] = [
                     'type' => $messageType,
-                    'text' => $_SESSION[$sessionKey],
-                    'animation' => $_SESSION[$sessionKey.'_animation'] ?? 'windowShake'
+                    'text' => htmlspecialchars($_SESSION[$sessionKey], ENT_QUOTES, 'UTF-8'),
+                    'animation' => htmlspecialchars($_SESSION[$sessionKey.'_animation'] ?? 'windowShake', ENT_QUOTES, 'UTF-8')
                 ];
                 unset($_SESSION[$sessionKey]);
                 unset($_SESSION[$sessionKey.'_animation']);
@@ -91,11 +91,11 @@ try {
         if (!isset($message['type']) || !isset($message['text'])) {
             continue;
         }
-        $animationClass = 'animate__' . $message['animation'];
+        $animationClass = 'animate__' . htmlspecialchars($message['animation'], ENT_QUOTES, 'UTF-8');
     ?>
     <div class="alert alert-<?php echo htmlspecialchars($message['type'], ENT_QUOTES, 'UTF-8'); ?> alert-dismissible fade show alert-animated animate__animated <?php echo $animationClass; ?>"
         role="alert" style="margin-bottom: 10px;">
-        <?php echo htmlspecialchars($message['text'], ENT_QUOTES, 'UTF-8'); ?>
+        <?php echo $message['text']; ?>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>

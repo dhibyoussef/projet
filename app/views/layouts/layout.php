@@ -41,8 +41,9 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy"
         content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
-    <meta name="csrf-token" content="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
-    <title><?php echo htmlspecialchars($title ?? 'Fitness Tracker'); ?></title>
+    <meta name="csrf-token"
+        content="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+    <title><?php echo htmlspecialchars($title ?? 'Fitness Tracker', ENT_QUOTES, 'UTF-8'); ?></title>
     <link rel="stylesheet" href="/fitness_tracker/public/assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="/fitness_tracker/public/assets/css/style.css">
     <style>
@@ -82,12 +83,12 @@ try {
     <main class="container">
         <?php if (isset($_SESSION['error_message'])): ?>
         <div class="error-message" id="error-message">
-            <?php echo htmlspecialchars($_SESSION['error_message']); ?>
+            <?php echo htmlspecialchars($_SESSION['error_message'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
         </div>
         <?php unset($_SESSION['error_message']); ?>
         <?php endif; ?>
         <?php include 'messages.php'; ?>
-        <?php echo $content; ?>
+        <?php echo htmlspecialchars($content ?? '', ENT_QUOTES, 'UTF-8'); ?>
     </main>
     <?php include 'footer.php'; ?>
     <script src="/fitness_tracker/public/assets/js/main.js"></script>
