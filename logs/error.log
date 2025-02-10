@@ -254,3 +254,123 @@
     "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
     "csrf_token": "b75b77b4f75e651ed737e88685e3e6bbcdba119d90e54d7742d2e71698c69eda"
 }
+{
+    "timestamp": "2025-02-09 02:17:56",
+    "message": "Unauthorized access attempt to nutrition view",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "348bd2108310bfbea7961c50cdce8a304c44638ed4b4082ed53835f28ce34d9e"
+}
+{
+    "timestamp": "2025-02-09 02:27:08",
+    "message": "Unauthorized access attempt to nutrition view",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "36de7b690f6c3b1454025435dee1e415ea34c75ec1cf4f6009a79806f45d003e"
+}
+{
+    "timestamp": "2025-02-09 03:53:39",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "d22056b52d874d1508929db12f6b4eb0a6de78731e47a6e9a3b94944db3da024"
+}
+{
+    "timestamp": "2025-02-09 20:25:36",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 20:25:37",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 20:44:31",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 20:54:19",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 20:54:21",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 20:54:21",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 21:02:17",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "51aff5a4f9f75ddb888808b3d497207fe3e364847671f964443ec6052c479d3c"
+}
+{
+    "timestamp": "2025-02-09 21:31:13",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "ee39500ca751ab6b69f673e857f321eda5cebc8cbd4eda070de83ae5286024a6"
+}
+{
+    "timestamp": "2025-02-09 21:31:46",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "6c2ddb57ed348d4c30f49f51637e9b0e282e3a1b93dc5ab04828018e230fdc7d"
+}
+{
+    "timestamp": "2025-02-09 22:26:13",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "6c2ddb57ed348d4c30f49f51637e9b0e282e3a1b93dc5ab04828018e230fdc7d"
+}
+{
+    "timestamp": "2025-02-09 23:09:16",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "1f4911ffa84e00fb30e63a95e4542432764868ce7e71075cde8997b1ab5fe5f3"
+}
+{
+    "timestamp": "2025-02-10 09:15:36",
+    "message": "Failed to retrieve nutrition data: No nutrition data found",
+    "request_uri": "\/app\/controllers\/nutrition\/ReadController.php",
+    "ip_address": "::1",
+    "user_agent": "Mozilla\/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/132.0.0.0 Safari\/537.36 Edg\/132.0.0.0",
+    "csrf_token": "ab41e0197a763818ae002279a6dab76e55fb3c0ca74b3c501d9c53e715724c2a"
+}
